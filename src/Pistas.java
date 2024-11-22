@@ -1,6 +1,6 @@
 public class Pistas {
-    private static final char PUNTO_BLANCO = '\u25CB';
-    private static final char PUNTO_NEGRO = '\u25CF';
+    private static final char PUNTO_BLANCO = '\u25CB'; // ○
+    private static final char PUNTO_NEGRO = '\u25CF';  // ●
 
     private int aciertos;
     private int descolocados;
@@ -27,8 +27,12 @@ public class Pistas {
         return aciertos;
     }
 
+    public int getDescolocados() {
+        return descolocados;
+    }
+
     @Override
     public String toString() {
-        return aciertos + " " + descolocados;
+        return "Aciertos "+PUNTO_NEGRO +" : " + aciertos + ", Descolocados "+ PUNTO_BLANCO +": " + descolocados;
     }
 }

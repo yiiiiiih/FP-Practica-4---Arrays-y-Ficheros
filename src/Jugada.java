@@ -15,27 +15,30 @@ public class Jugada {
     private Color[] fichas;
 
     public Jugada(String cadena) {
+        if (cadena == null || cadena.isEmpty()) {
+            throw new IllegalArgumentException("La cadena no puede ser nula o vacía.");
+        }
         fichas = new Color[cadena.length()];
         for (int i = 0; i < cadena.length(); i++) {
-            switch (cadena.charAt(i)){
-                case 'R' :
-                    fichas[i]=Color.ROJO;
+            switch (Character.toUpperCase(cadena.charAt(i))) {
+                case 'R':
+                    fichas[i] = Color.ROJO;
                     break;
-
-                case 'v':
-                    fichas[i]= Color.VERDE;
+                case 'V':
+                    fichas[i] = Color.VERDE;
                     break;
-
                 case 'A':
                     fichas[i] = Color.AMARILLO;
                     break;
                 case 'P':
                     fichas[i] = Color.PURPURA;
                     break;
+                default:
+                    throw new IllegalArgumentException("Caracter inválido en la cadena: " + cadena.charAt(i));
             }
-
         }
     }
+
 
     public Jugada(int numFichas) {
         Random random = new Random();
@@ -63,7 +66,7 @@ public class Jugada {
 
         }
         for (int i = 0; i <fichas.length ; i++) {
-            if (!usadosJugador[i]){ //??????
+            if (!usadosJugador[i]){
                 boolean encontrado = false;
                 for (int j = 0; j <oculta.fichas.length ; j++) {
                     if (!usadosOcultas[j] && fichas[i] == oculta.fichas[j] ){ // si es false ??????
@@ -80,7 +83,6 @@ public class Jugada {
         }
         return new Pistas(negros,blancos);
     }
-
 
     public void visualizar() {
         for (int i = 0; i < fichas.length; i++) {
@@ -102,25 +104,25 @@ public class Jugada {
         System.out.print(ANSI_BLACK);
     }
 
+    @Override
     public String toString() {
-        String resultado = "";
-        for (int i = 0; i < fichas.length; i++) {
-            switch (fichas[i]) {
+        StringBuilder resultado = new StringBuilder();
+        for (Color ficha : fichas) {
+            switch (ficha) {
                 case ROJO:
-                    resultado += "R";
+                    resultado.append("R");
                     break;
                 case VERDE:
-                    resultado += "V";
+                    resultado.append("V");
                     break;
                 case AMARILLO:
-                    resultado += "A";
+                    resultado.append("A");
                     break;
                 case PURPURA:
-                    resultado += "P";
+                    resultado.append("P");
                     break;
             }
         }
-        return resultado;
+        return resultado.toString();
     }
-
 }
